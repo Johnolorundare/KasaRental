@@ -16,7 +16,7 @@ app.use('/api/user', userRoute);
 app.use('/api/static/images', appRoute);
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'src', 'assets', 'icon.png'));
+    res.status(200).send("Welcome to the oneshop backend");
 })
 
 
