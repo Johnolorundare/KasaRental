@@ -1,19 +1,19 @@
-const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const app = express();
 const Mongoose = require('mongoose');
-const { Schema, model } = Mongoose;
 
 require("dotenv").config();
 const { MONGOUSER, MONGOPASSWORD, MONGOHOST, MONGOPORT, MONGODATABASE } = process.env;
 const PORT = process.env.PORT || 4000;
 
 const userRoute = require('./src/routes/user.route');
+const appRoute = require('./src/routes/app.route');
 
 app.use(cors());
 app.use(express.json());
 app.use('/api/user', userRoute);
+app.use('/api/static/images', appRoute);
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'src', 'assets', 'icon.png'));
