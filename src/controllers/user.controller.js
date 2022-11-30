@@ -28,7 +28,7 @@ async function handleLogin(req, res){
     try{          
         const { username, password } = req.body;
          
-        const user = await UserModel.login(username, password)     
+        const user = await UserModel.login(username, password);
         return res.status(200).json({
             message: "Login Successful",
             user,

@@ -11,11 +11,11 @@ const userSchema = new Schema({
     email: {
         type: String,
         requried: true,
+        unique: true
     },
     phoneNumber: {
         type: String,
-        requried: true,
-        unique: true
+        default: 'none'
     },
     password: {
         type: String,
