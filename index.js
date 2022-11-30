@@ -22,10 +22,10 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(PORT, () => {
-  console.log(`Database connected and server running on port: ${PORT}`);
+Mongoose.connect(`mongodb://${ MONGOUSER }:${ MONGOPASSWORD }@${ MONGOHOST }:${ MONGOPORT }/${ MONGODATABASE }?authSource=admin`)
+.then(() => {
+  app.listen(PORT, () => {
+    console.log(`Database connected and server running on port: ${PORT}`);
+  })
 })
-// Mongoose.connect(`mongodb://${ MONGOUSER }:${ MONGOPASSWORD }@${ MONGOHOST }:${ MONGOPORT }/${ MONGODATABASE }?authSource=admin`)
-// .then(() => {
-// })
-// .catch((err) => {console.log(new Error(err))})
+.catch((err) => {console.log(new Error(err))})
