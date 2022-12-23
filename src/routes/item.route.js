@@ -4,14 +4,13 @@ const multer = require('multer');
 
 const imgStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'src/assets/images/')
+    cb(null, 'src/assets/images/');
   },
   filename: function (req, file, cb) {
-    // cb(null, Date.now() + '-' + file.originalname )
-    cb(null, file.originalname )
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
-const uploadImg = multer({ storage: imgStorage })
+const uploadImg = multer({ storage: imgStorage });
 
 
 route.post('/new', uploadImg.single('file'), (req, res) => {

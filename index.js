@@ -21,8 +21,12 @@ app.get('/', (req, res) => {
     res.status(200).send("Welcome to the oneshop backend");
 })
 
-
-Mongoose.connect(`mongodb://${ MONGOUSER }:${ MONGOPASSWORD }@${ MONGOHOST }:${ MONGOPORT }/${ MONGODATABASE }?authSource=admin`)
+const db = "local";
+// Mongoose.connect(`mongodb+srv://${ MONGOUSER }:${ MONGOPASSWORD }@${ MONGOHOST }/${ MONGODATABASE }`)
+Mongoose.connect(db === "local" ? 
+`mongodb://localhost:27017/oneshop` : 
+`mongodb+srv://${ MONGOUSER }:${ MONGOPASSWORD }@${ MONGOHOST }/${ MONGODATABASE }`
+)
 .then(() => {
   app.listen(PORT, () => {
     console.log(`Database connected and server running on port: ${PORT}`);
