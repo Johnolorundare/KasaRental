@@ -11,13 +11,14 @@ const handleRegister = async (req, res) => {
             newUser,
             statusCode: 201
         });
-    }catch(err){
-        // console.log(err);
-        res.status(500).json({
-            message: err.code === 11000 ? "Username or phone number already exists" : "Registration unsuccessful!",
+    }catch(error){
+        const statusCode = error.code === 11000 ? 409 : 500;
+        const message = error.code === 11000 ? "Username or phone number already exists" : "Registration unsuccessful!";
+        res.status(statusCode).json({
+            message,
             success: false,
-            err,
-            statusCode: 500
+            error,
+            statusCode
         });
     }
 
