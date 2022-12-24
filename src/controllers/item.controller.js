@@ -1,8 +1,24 @@
 const Item = require("../model/item.model");
 
+const handleGetCategoryItems = async (req, res) => {
+    try{
+        // return console.log(req.query)
+        let { categoryId, limit } = req.query;
+        let categoryItems = await Item.find({ category_id: categoryId }).limit(limit);
+        res.status(200).json({
+            message: "items retrieved sucessfully",
+            categoryItems,
+            statusCode: 200,
+            success: true
+        });
+    }catch(error){
+
+    }
+}
 const handleGetItems = async (req, res) => {
     try{
-        let allItems = await Item.find();
+        let { limit } = req.query;
+        let allItems = await Item.find().limit(limit);
         res.status(200).json({
             message: "items retrieved sucessfully",
             allItems,
@@ -44,5 +60,6 @@ const handleNewItem = async (req, res) => {
 
 module.exports = {
     handleNewItem,
-    handleGetItems
+    handleGetItems,
+    handleGetCategoryItems
 };
