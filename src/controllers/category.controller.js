@@ -19,6 +19,7 @@ const handleGetAllCategories = async (req, res) => {
         });
     }
 }
+
 const handleNewCategory = async (req, res) => {
     try{
         // console.log(req.body);

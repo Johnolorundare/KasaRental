@@ -1,20 +1,11 @@
 const express = require('express');
 const route = express.Router();
-const multer = require('multer');
-
-const imgStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'src/assets/images/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const uploadImg = multer({ storage: imgStorage });
+const { uploadImg } = require("../utils/multerSingleUpload");
+const {
+  handleNewItem
+} = require("../controllers/item.controller");
 
 
-route.post('/new', uploadImg.single('file'), (req, res) => {
-    res.send(req.file.filename);
-});
+route.post('/new', uploadImg.single('file'), handleNewItem);
 
 module.exports = route;
