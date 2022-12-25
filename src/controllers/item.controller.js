@@ -12,9 +12,15 @@ const handleGetCategoryItems = async (req, res) => {
             success: true
         });
     }catch(error){
-
+        res.status(500).json({
+            message: "Internal server error",
+            error,
+            statusCode: 500,
+            success: false
+        });
     }
 }
+
 const handleGetItems = async (req, res) => {
     try{
         let { limit } = req.query;
