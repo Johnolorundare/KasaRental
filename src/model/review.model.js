@@ -5,6 +5,10 @@ const reviewSchema = new Schema({
         type: String,
         required: true
     },
+    item_id: {
+        type: String,
+        required: true
+    },
     rewiew_content: {
         type: String,
         required: true
@@ -14,3 +18,5 @@ const reviewSchema = new Schema({
         required: true
     }
 }, { timestamps: true });
+
+module.exports = model("Review", reviewSchema);

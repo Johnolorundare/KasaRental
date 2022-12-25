@@ -11,12 +11,14 @@ const userRoute = require('./src/routes/user.route');
 const appRoute = require('./src/routes/app.route');
 const itemRoute = require('./src/routes/item.route');
 const categoryRoute = require('./src/routes/category.route');
+const reviewRoute = require('./src/routes/review.route');
 
 app.use(cors());
 app.use(express.json());
 app.use('/api/user', userRoute);
 app.use('/api/static/images', appRoute);
 app.use('/api/category', categoryRoute);
+app.use('/api/review', reviewRoute);
 app.use('/api/item', itemRoute);
 
 app.get('/', (req, res) => {
