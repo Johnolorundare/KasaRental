@@ -1,8 +1,8 @@
 const Review = require("../model/review.model");
+const User = require("../model/user.model");
 
 const handleGetItemReviews = async (req, res) => {
     try{
-        return conaole.log("itemReviews");
         const { itemId, limit } = req.query;
         let itemReviews = await Review.find({ item_id: itemId }).limit(limit);
         return res.status(200).json({

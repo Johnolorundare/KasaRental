@@ -5,6 +5,10 @@ const reviewSchema = new Schema({
         type: String,
         required: true
     },
+    sender_name: {
+        type: String,
+        required: true
+    },
     item_id: {
         type: String,
         required: true
