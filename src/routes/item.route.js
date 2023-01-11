@@ -4,12 +4,14 @@ const { uploadImg } = require("../utils/multerSingleUpload");
 const {
   handleNewItem,
   handleGetItems,
-  handleGetCategoryItems
+  handleGetCategoryItems,
+  handleGetItem
 } = require("../controllers/item.controller");
 
 
 route.get('/all', handleGetItems);
 route.get('/category', handleGetCategoryItems);
 route.post('/new', uploadImg.single('file'), handleNewItem);
+route.get('/:id', handleGetItem);
 
 module.exports = route;

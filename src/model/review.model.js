@@ -9,7 +9,7 @@ const reviewSchema = new Schema({
         type: String,
         required: true
     },
-    rewiew_content: {
+    text: {
         type: String,
         required: true
     },

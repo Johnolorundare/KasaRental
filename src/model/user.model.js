@@ -17,6 +17,10 @@ const userSchema = new Schema({
         type: String,
         default: 'none'
     },
+    profileImage: {
+        type: String,
+        default: 'none'
+    },
     password: {
         type: String,
         requried: true,
@@ -27,8 +31,7 @@ const userSchema = new Schema({
     },
     isDeleted: {
         type: Boolean,
-        default: false,
-        requried: true
+        default: false
     }
 })
 

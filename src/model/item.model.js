@@ -5,6 +5,10 @@ const itemSchema = new Schema({
         type: String,
         required: true
     },
+    category_name: {
+        type: String,
+        required: true
+    },
     category_id: {
         type: String,
         required: true
@@ -13,8 +17,8 @@ const itemSchema = new Schema({
         type: Number,
         required: true
     },
-    thumbnail: {
-        type: String,
+    thumbnails: {
+        type: [String],
         required: true
     },
     owner_id: {
@@ -24,6 +28,14 @@ const itemSchema = new Schema({
     max_days: {
         type: Number,
         required: true
+    },
+    condition: {
+        type: String,
+        required: true
+    },
+    rating: {
+        type: String,
+        default: "5"
     },
     description: {
         type: String,

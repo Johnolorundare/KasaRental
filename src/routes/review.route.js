@@ -2,11 +2,11 @@ const express = require("express");
 const route = express.Router();
 const {
     handleAddReview,
-    handleGetItemReview
+    handleGetItemReviews
 } = require("../controllers/review.controller");
 
 
 route.post('/new', handleAddReview);
-route.get('/item/:itemId', handleGetItemReview);
+route.get('/item', handleGetItemReviews);
 
 module.exports = route;

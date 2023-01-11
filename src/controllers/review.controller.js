@@ -1,11 +1,11 @@
 const Review = require("../model/review.model");
 
-const handleGetItemReview = async (req, res) => {
+const handleGetItemReviews = async (req, res) => {
     try{
-        const { itemId } = req.params;
-        const { limit } = req.query;
+        return conaole.log("itemReviews");
+        const { itemId, limit } = req.query;
         let itemReviews = await Review.find({ item_id: itemId }).limit(limit);
-        res.status(200).json({
+        return res.status(200).json({
             message: "Reviews retrieved sucessfully",
             itemReviews,
             statusCode: 200,
@@ -22,7 +22,7 @@ const handleGetItemReview = async (req, res) => {
 }
 const handleAddReview = async (req, res) => {
     try{
-        console.log(req.body);
+        // console.log(req.body);
         let newReview = new Review(req.body);
         newReview = await newReview.save();
         res.status(201).json({
@@ -44,5 +44,5 @@ const handleAddReview = async (req, res) => {
 
 module.exports = {
     handleAddReview,
-    handleGetItemReview
+    handleGetItemReviews
 };
