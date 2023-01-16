@@ -34,8 +34,8 @@ const itemSchema = new Schema({
         required: true
     },
     rating: {
-        type: String,
-        default: "5"
+        type: Number,
+        default: 0
     },
     description: {
         type: String,

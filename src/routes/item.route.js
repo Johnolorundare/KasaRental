@@ -11,7 +11,7 @@ const {
 
 route.get('/all', handleGetItems);
 route.get('/category', handleGetCategoryItems);
-route.post('/new', uploadImg.single('file'), handleNewItem);
+route.post('/new', uploadImg.array('file'), handleNewItem);
 route.get('/:id', handleGetItem);
 
 module.exports = route;

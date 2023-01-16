@@ -9,6 +9,7 @@
 
 const Item = require("../model/item.model");
 const Category = require("../model/category.model");
+const User = require("../model/user.model");
 
 const handleGetCategoryItems = async (req, res) => {
     try{
@@ -76,7 +77,9 @@ const handleGetItems = async (req, res) => {
 const handleNewItem = async (req, res) => {
     try{
         let itemData = JSON.parse(req.body.itemData);
-        itemData = { ...itemData, thumbnail: req.file.filename }
+        let thumbnails = req.files.map((file) => { return file.filename });
+        // return console.log(thumbnails)
+        itemData = { ...itemData, thumbnails }
         let newItem = new Item(itemData);
         newItem = await newItem.save();
 
@@ -100,16 +103,29 @@ const handleGetItem = async (req, res) => {
     try{
         let { id: itemId } = req.params;
 
-        const item = await Item.find({ _id: itemId });
-        // return console.log(item)
+        let item = await Item.find({ _id: itemId });
+        if(item.length === 0) {
+            return res.status(404).json({
+                message: "item not found",
+                statusCode: 404,
+                success: false
+            });
+        }
+
+        item = item[0];
+        const user = await User.find({ _id: item.owner_id });
+        // item['owner'] = user[0];
+        // return console.log(item);
 
         res.status(201).json({
             message: "item added sucessfully",
-            item: item[0],
+            item,
+            owner: user[0],
             statusCode: 201,
             success: true
         });
     }catch(error){
+        console.log(error)
         res.status(500).json({
             message: "Internal server error",
             error,

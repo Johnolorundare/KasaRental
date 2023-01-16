@@ -4,19 +4,59 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const UserModel = require('../model/user.model');
+const User = require('../model/user.model');
 
+const handleUpdateWishlist = async (req, res) => {
+    try{
+        const { user_id, item: newItem } = req.body;
+        let user = await User.find({ _id: user_id });
+        user = user[0];
+
+        if(!user){
+            return res.status(404).json({
+                message: "user not found",
+                success: false,
+                statusCode: 404
+            });
+        }
+
+        let { wishlist } = user;
+        const itemInWishlist = wishlist.find((item) => (item._id === newItem._id));
+        if(!itemInWishlist) wishlist.push(newItem);
+        else wishlist = wishlist.filter((item) => (item._id !== newItem._id));
+        // return console.log(itemInWishlist);
+        
+        user['wishlist'] = wishlist;
+        let updatedUser = await User.replaceOne({ _id: user_id }, user);
+
+        return res.status(201).json({
+            message: "added to wishlist",
+            updatedUser: user,
+            success: true,
+            statusCode: 201
+        });
+     } catch (error) {
+        // console.log(error);
+        return res.status(500).json({
+            message: "Something went wrong",
+            success: false,
+            error,
+            statusCode: 500
+        });
+    }
+}
 const handleUpdateProfileImage = async (req, res) => {
     try{
         const { userId, imageUrl } = req.body;
-        const user = await UserModel.find({ _id: userId });
+        let user = await User.find({ _id: userId });
+        user = user[0];
         user['profileImage'] = imageUrl;
-         console.log(user);
-        const updatedUser = await UserModel.replaceOne({ _id: userId }, user);
+        //  return console.log(user);
+        const updatedUser = await User.replaceOne({ _id: userId }, user);
         return res.status(201).json({
             message: "Profile picture updated",
             success: true,
-            updatedUser,
+            updatedUser: user,
             statusCode: 201
         });
     } catch (error) {
@@ -53,7 +93,7 @@ const handleGenerateProfileImage = async (req, res) => {
 }
 const handleRegister = async (req, res) => {
     try{
-        let newUser = new UserModel(req.body);
+        let newUser = new User(req.body);
         newUser = await newUser.save();
         // return console.log(newUser);
         return res.status(201).json({
@@ -73,7 +113,7 @@ const handleRegister = async (req, res) => {
         });
     }
 
-    // const userExists = UserModel.countDocuments({ username });
+    // const userExists = User.countDocuments({ username });
 }
 
 async function handleLogin(req, res){
@@ -81,7 +121,7 @@ async function handleLogin(req, res){
         let { username, password } = req.body;
         username = username.trim();
          
-        const user = await UserModel.login(username, password);
+        const user = await User.login(username, password);
         return res.status(200).json({
             message: "Login Successful",
             user,
@@ -104,5 +144,6 @@ module.exports = {
     handleRegister,
     handleLogin,
     handleGenerateProfileImage,
-    handleUpdateProfileImage
+    handleUpdateProfileImage,
+    handleUpdateWishlist
 };

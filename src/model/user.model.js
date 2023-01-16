@@ -32,6 +32,10 @@ const userSchema = new Schema({
     isDeleted: {
         type: Boolean,
         default: false
+    },
+    wishlist: {
+        type: [Object],
+        default: []
     }
 })
 
