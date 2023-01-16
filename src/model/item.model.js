@@ -31,7 +31,7 @@ const itemSchema = new Schema({
     },
     condition: {
         type: String,
-        required: true
+        default: "not rented"
     },
     rating: {
         type: Number,
