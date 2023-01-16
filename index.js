@@ -4,7 +4,7 @@ const app = express();
 const Mongoose = require('mongoose');
 
 require("dotenv").config();
-const { MONGOUSER, MONGOPASSWORD, MONGOHOST, MONGOPORT, MONGODATABASE } = process.env;
+const { MONGOUSER, MONGOPASSWORD, MONGOHOST, MONGOPORT, MONGODATABASE, ENV } = process.env;
 const PORT = process.env.PORT || 4000;
 
 const userRoute = require('./src/routes/user.route');
@@ -27,9 +27,9 @@ app.get('/', (req, res) => {
     res.status(200).send("Welcome to the oneshop backend");
 })
 
-const dbLocal = false;
+// const dbLocal = true;
 // Mongoose.connect(`mongodb+srv://${ MONGOUSER }:${ MONGOPASSWORD }@${ MONGOHOST }/${ MONGODATABASE }`)
-Mongoose.connect(dbLocal ? 
+Mongoose.connect(ENV === "development" ? 
 `mongodb://localhost:27017/oneshop` : 
 `mongodb+srv://${ MONGOUSER }:${ MONGOPASSWORD }@${ MONGOHOST }/${ MONGODATABASE }`
 )
