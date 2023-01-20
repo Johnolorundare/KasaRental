@@ -2,10 +2,10 @@ const express = require('express');
 const route = express.Router();
 const {
     handleImage,
-    handleDeleteImages
+    // handleDeleteImages
 } = require('../controllers/app.controller');
 
 route.get('/:filename', handleImage);
-route.delete('/', handleDeleteImages);
+// route.delete('/', handleDeleteImages);
 
 module.exports = route;
